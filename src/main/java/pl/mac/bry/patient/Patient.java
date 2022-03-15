@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import com.mac.bry.sample.Sample;
+import pl.mac.bry.sample.Sample;
 
 import lombok.Data;
 import pl.mac.bry.patient.enums.ABOBloodGroup;
