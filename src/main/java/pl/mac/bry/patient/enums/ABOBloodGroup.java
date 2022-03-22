@@ -6,15 +6,22 @@ public enum ABOBloodGroup {
 	B("Group B"),
 	O("Group 0");
 	
-	private final String descriptionString;
+	private final String description;
 
-	private ABOBloodGroup(String descriptionString) {
-		this.descriptionString = descriptionString;
+	private ABOBloodGroup(String description) {
+		this.description = description;
 	}
 
 	public String getDescription() {
-		return descriptionString;
+		return description;
 	}
 	
-
+ 	public static ABOBloodGroup valueOfDescription (String description) {
+		for (ABOBloodGroup aboBloodGroup : values()) {
+			if (aboBloodGroup.getDescription().equals(description)) {
+				return aboBloodGroup;
+			}
+		}
+		return null;
+	}
 }

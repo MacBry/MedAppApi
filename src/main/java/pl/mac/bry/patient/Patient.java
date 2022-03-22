@@ -12,17 +12,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import pl.mac.bry.sample.Sample;
 
-import lombok.Data;
 import pl.mac.bry.patient.enums.ABOBloodGroup;
 import pl.mac.bry.patient.enums.RhDFactor;
 
-@Data
+
+@Setter
+@Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Patient implements Serializable  {
 
 

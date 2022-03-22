@@ -27,4 +27,5 @@ public class Sample implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="patient_id")
     private Patient patient;
+
 }

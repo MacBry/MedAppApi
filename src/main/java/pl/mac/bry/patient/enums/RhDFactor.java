@@ -14,5 +14,12 @@ public enum RhDFactor {
 		return description;
 	}
 	
-	
+	public static RhDFactor valueOFDescription (String description) {
+		for (RhDFactor rhDFactor : values()) {
+			if(rhDFactor.getDescription().equals(description)){
+				return rhDFactor;
+			}
+		}
+		return null;
+	}
 }
