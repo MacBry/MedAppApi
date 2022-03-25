@@ -32,25 +32,15 @@ public class PatientController {
 
     @GetMapping("/id/{id}")
     public ResponseEntity<PatientDto> getPatientById(@PathVariable("id") long id) {
-        PatientDto patientDto;
-        try {
-            patientDto = patientService.findPatientById(id);
-        }
-        catch (InvalidPatientIdException ex) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(patientDto);
+        return patientService.findPatientById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
     @GetMapping("/pesel/{pesel}")
     public ResponseEntity<PatientDto> getPatientByPesel(@PathVariable("pesel") String pesel) {
-        PatientDto patientDto;
-        try {
-            patientDto = patientService.findPatientByPesel(pesel);
-        }
-        catch (InvalidPatientPeselException ex) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(patientDto);
+        return patientService.findPatientByPesel(pesel)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -61,5 +51,18 @@ public class PatientController {
                 .buildAndExpand(addedPatient.getId())
                 .toUri();
         return ResponseEntity.created(addedPatientUri).body(addedPatient);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updatePatient(@PathVariable("id") long id, @RequestBody PatientDto patientDto) {
+        return patientService.updatePatient(id,patientDto)
+                .map(patient->ResponseEntity.noContent().build())
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePatient(@PathVariable("id") long id) {
+        patientService.deletePatient(id);
+        return ResponseEntity.noContent().build();
     }
 }

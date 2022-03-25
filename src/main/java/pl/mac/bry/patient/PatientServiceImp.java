@@ -3,9 +3,11 @@ package pl.mac.bry.patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.mac.bry.patient.dto.PatientDto;
-import pl.mac.bry.patient.exceptions.InvalidPatientIdException;
-import pl.mac.bry.patient.exceptions.InvalidPatientPeselException;
+import pl.mac.bry.patient.enums.ABOBloodGroup;
+import pl.mac.bry.patient.enums.RhDFactor;
 
+import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,15 +18,14 @@ class PatientServiceImp implements PatientService {
     private final PatientDtoMapper patientDtoMapper;
 
     @Autowired
-    public PatientServiceImp(PatientRepository patientRepository, PatientDtoMapper patientDtoMapper) {
+    PatientServiceImp(PatientRepository patientRepository, PatientDtoMapper patientDtoMapper) {
         this.patientRepository = patientRepository;
         this.patientDtoMapper = patientDtoMapper;
     }
 
     @Override
-    public PatientDto findPatientById(long id) {
-        return patientRepository.findById(id).map(patientDtoMapper::map)
-                .orElseThrow(() -> new InvalidPatientIdException(id));
+    public Optional<PatientDto> findPatientById(long id) {
+        return patientRepository.findById(id).map(patientDtoMapper::map);
     }
 
     @Override
@@ -33,9 +34,8 @@ class PatientServiceImp implements PatientService {
     }
 
     @Override
-    public PatientDto findPatientByPesel(String pesel) {
-        return patientRepository.findPatientByPesel(pesel).map(patientDtoMapper::map)
-                .orElseThrow(() -> new InvalidPatientPeselException(pesel));
+    public Optional<PatientDto> findPatientByPesel(String pesel) {
+        return patientRepository.findPatientByPesel(pesel).map(patientDtoMapper::map);
     }
 
     @Override
@@ -43,5 +43,37 @@ class PatientServiceImp implements PatientService {
         Patient patient = patientDtoMapper.map(patientDto);
         Patient addedPatient = patientRepository.save(patient);
         return patientDtoMapper.map(addedPatient);
+    }
+
+    @Override
+    @Transactional
+    public Optional<PatientDto> updatePatient(Long patientId, PatientDto patientDto) {
+        return patientRepository.findById(patientId)
+                .map(target -> setEntityFields(patientDto, target))
+                .map(patientDtoMapper::map);
+    }
+
+    @Override
+    public void deletePatient(Long id) {
+        patientRepository.deleteById(id);
+    }
+
+    private Patient setEntityFields(PatientDto patientDto, Patient target) {
+        if(patientDto.getFirstName() != null) {
+            target.setFirstName(patientDto.getFirstName());
+        }
+        if(patientDto.getLastName() != null) {
+            target.setLastName(patientDto.getLastName());
+        }
+        if(patientDto.getPesel() != null) {
+            target.setPesel(patientDto.getPesel());
+        }
+        if(patientDto.getAboGroup() != null) {
+            target.setAboGroup(ABOBloodGroup.valueOfDescription(patientDto.getAboGroup()));
+        }
+        if(patientDto.getRhdFactor() !=null) {
+            target.setRhdFactor(RhDFactor.valueOFDescription(patientDto.getRhdFactor()));
+        }
+        return target;
     }
 }

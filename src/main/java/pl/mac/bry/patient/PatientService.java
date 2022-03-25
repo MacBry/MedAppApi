@@ -7,11 +7,15 @@ import java.util.Set;
 
 interface PatientService {
 
-    PatientDto findPatientById(long id);
+    Optional<PatientDto> findPatientById(long id);
 
     Set<PatientDto> getAllPatients();
 
-    PatientDto findPatientByPesel(String pesel);
+    Optional<PatientDto> findPatientByPesel(String pesel);
 
     PatientDto addPatient(PatientDto patientDto);
+
+    Optional<PatientDto> updatePatient(Long patientId, PatientDto patientDto);
+
+    void deletePatient(Long id);
 }

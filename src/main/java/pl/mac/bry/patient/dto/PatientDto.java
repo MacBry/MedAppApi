@@ -10,6 +10,7 @@ import pl.mac.bry.patient.enums.RhDFactor;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Service
 public class PatientDto {
 
