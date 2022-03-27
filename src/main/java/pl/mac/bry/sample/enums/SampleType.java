@@ -15,4 +15,13 @@ public enum SampleType {
     public String getDescription() {
         return description;
     }
+
+    public static SampleType valuesOfDescription (String description) {
+        for (SampleType sampleType : values()) {
+            if(sampleType.getDescription().equals(description)) {
+                return sampleType;
+            }
+        }
+        return null;
+    }
 }

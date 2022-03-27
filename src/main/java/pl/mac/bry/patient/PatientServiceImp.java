@@ -24,7 +24,7 @@ class PatientServiceImp implements PatientService {
     }
 
     @Override
-    public Optional<PatientDto> findPatientById(long id) {
+    public Optional<PatientDto> findPatientById(Long id) {
         return patientRepository.findById(id).map(patientDtoMapper::map);
     }
 

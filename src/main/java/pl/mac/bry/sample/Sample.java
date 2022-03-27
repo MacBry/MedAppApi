@@ -1,5 +1,6 @@
 package pl.mac.bry.sample;
 
+import lombok.Builder;
 import lombok.Data;
 import pl.mac.bry.patient.Patient;
 import pl.mac.bry.sample.enums.SampleType;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 @Data
+@Builder
 @Entity
 public class Sample implements Serializable {
 

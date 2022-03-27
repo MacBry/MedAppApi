@@ -7,7 +7,7 @@ import java.util.Set;
 
 interface PatientService {
 
-    Optional<PatientDto> findPatientById(long id);
+    Optional<PatientDto> findPatientById(Long id);
 
     Set<PatientDto> getAllPatients();
 

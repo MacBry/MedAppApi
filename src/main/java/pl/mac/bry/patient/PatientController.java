@@ -5,8 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.mac.bry.patient.dto.PatientDto;
-import pl.mac.bry.patient.exceptions.InvalidPatientIdException;
-import pl.mac.bry.patient.exceptions.InvalidPatientPeselException;
 
 import java.net.URI;
 import java.util.Set;
