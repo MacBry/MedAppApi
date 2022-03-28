@@ -7,6 +7,7 @@ import pl.mac.bry.patient.PatientFacade;
 import pl.mac.bry.sample.dto.ComplexSampleDto;
 import pl.mac.bry.sample.dto.SimpleSampleDto;
 
+import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -52,7 +53,12 @@ public class SampleServiceImpl implements SampleService{
 
     @Override
     public SimpleSampleDto addSample(SimpleSampleDto simpleSampleDto) {
-        return null;
+        Sample sampleToSave = sampleDtoMapper.simpleMapping(simpleSampleDto);
+        Patient patient = patientFacade.getPatient(sampleToSave.getPatient().getId());
+        sampleToSave.setRegistrationDateTime(ZonedDateTime.now());
+        sampleToSave.setPatient(patient);
+        Sample savedSample = sampleRepository.save(sampleToSave);
+        return  sampleDtoMapper.simpleMapping(savedSample);
     }
 
     @Override

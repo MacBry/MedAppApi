@@ -14,6 +14,7 @@ public class ComplexSampleDto {
     private String registrationDateTime;
     private String sampleType;
 
+    private long patientId;
     private String firstName;
     private String lastName;
     private String pesel;

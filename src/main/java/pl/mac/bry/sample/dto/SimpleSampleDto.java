@@ -13,5 +13,5 @@ public class SimpleSampleDto {
     private String donationDateTime;
     private String registrationDateTime;
     private String sampleType;
-
+    private long patientId;
 }

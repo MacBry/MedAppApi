@@ -20,15 +20,14 @@ class SampleDtoMapper {
                 .donationDateTime(getStringFromZonedDateTime(sample.getDonationDateTime()))
                 .registrationDateTime(getStringFromZonedDateTime(sample.getRegistrationDateTime()))
                 .sampleType(sample.getSampleType().getDescription())
+                .patientId(sample.getPatient().getId())
                 .build();
 
     }
 
     Sample simpleMapping (SimpleSampleDto dto) {
         return Sample.builder()
-                .id(dto.getId())
                 .donationDateTime(getZonedDateTimeFromString(dto.getDonationDateTime()))
-                .registrationDateTime(getZonedDateTimeFromString(dto.getRegistrationDateTime()))
                 .sampleType(SampleType.valuesOfDescription(dto.getSampleType()))
                 .build();
     }
@@ -39,6 +38,7 @@ class SampleDtoMapper {
                 .donationDateTime(getStringFromZonedDateTime(sample.getDonationDateTime()))
                 .registrationDateTime(getStringFromZonedDateTime(sample.getRegistrationDateTime()))
                 .sampleType(sample.getSampleType().getDescription())
+                .patientId(sample.getPatient().getId())
                 .firstName(sample.getPatient().getFirstName())
                 .lastName(sample.getPatient().getLastName())
                 .pesel(sample.getPatient().getPesel())
@@ -49,9 +49,7 @@ class SampleDtoMapper {
 
     Sample complexMapping (ComplexSampleDto dto) {
         return Sample.builder()
-                .id(dto.getId())
                 .donationDateTime(getZonedDateTimeFromString(dto.getDonationDateTime()))
-                .registrationDateTime(getZonedDateTimeFromString(dto.getRegistrationDateTime()))
                 .sampleType(SampleType.valuesOfDescription(dto.getSampleType()))
                 .build();
     }
@@ -62,12 +60,10 @@ class SampleDtoMapper {
 
     private String getStringFromZonedDateTime(ZonedDateTime dateTime) {
         DateTimeFormatter formatter = getDateTimeFormatter();
-        final var format = dateTime.format(formatter);
-        return format;
+        return dateTime.format(formatter);
     }
 
     private DateTimeFormatter getDateTimeFormatter() {
-        final var formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-        return formatter;
+        return DateTimeFormatter.ofPattern(DATE_FORMAT);
     }
 }
