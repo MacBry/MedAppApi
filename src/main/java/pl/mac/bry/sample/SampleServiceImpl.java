@@ -6,21 +6,24 @@ import pl.mac.bry.patient.Patient;
 import pl.mac.bry.patient.PatientFacade;
 import pl.mac.bry.sample.dto.ComplexSampleDto;
 import pl.mac.bry.sample.dto.SimpleSampleDto;
+import pl.mac.bry.sample.enums.SampleType;
 
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class SampleServiceImpl implements SampleService{
+class SampleServiceImpl implements SampleService{
 
     private final SampleRepository sampleRepository;
     private final SampleDtoMapper sampleDtoMapper;
     private final PatientFacade patientFacade;
 
+
     @Autowired
-    public SampleServiceImpl(SampleRepository sampleRepository
+    SampleServiceImpl(SampleRepository sampleRepository
             , SampleDtoMapper sampleDtoMapper
             , PatientFacade patientFacade) {
         this.sampleRepository = sampleRepository;
@@ -63,11 +66,33 @@ public class SampleServiceImpl implements SampleService{
 
     @Override
     public Optional<SimpleSampleDto> updateSample(Long sampleId, SimpleSampleDto simpleSampleDto) {
-        return Optional.empty();
+        return sampleRepository.findById(sampleId)
+                .map(target -> setEntityFields(simpleSampleDto, target))
+                .map(sampleDtoMapper::simpleMapping);
     }
 
     @Override
     public void deleteSample(Long sampleId) {
-
+        sampleRepository.deleteById(sampleId);
     }
+
+    private Sample setEntityFields(SimpleSampleDto simpleSampleDto, Sample target) {
+        if(simpleSampleDto.getDonationDateTime() != null) {
+            target.setDonationDateTime(getZonedDateTimeFromString(simpleSampleDto.getDonationDateTime()));
+        }
+        if(simpleSampleDto.getSampleType() != null) {
+            target.setSampleType(SampleType.valuesOfDescription(simpleSampleDto.getSampleType()));
+        }
+        return  target;
+    }
+
+    private ZonedDateTime getZonedDateTimeFromString(String donationDateTime) {
+        return ZonedDateTime.parse(donationDateTime, getDateTimeFormatter());
+    }
+
+    private DateTimeFormatter getDateTimeFormatter() {
+        return DateTimeFormatter.ofPattern(SampleDtoMapper.DATE_FORMAT);
+    }
+
+
 }

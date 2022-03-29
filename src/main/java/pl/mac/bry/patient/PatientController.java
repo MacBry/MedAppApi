@@ -28,9 +28,9 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getAllPatients());
     }
 
-    @GetMapping("/id/{id}")
-    public ResponseEntity<PatientDto> getPatientById(@PathVariable("id") long id) {
-        return patientService.findPatientById(id)
+    @GetMapping("/id/{patientId}")
+    public ResponseEntity<PatientDto> getPatientById(@PathVariable("patientId") long patientId) {
+        return patientService.findPatientById(patientId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -45,22 +45,22 @@ public class PatientController {
     public ResponseEntity<PatientDto> savePatient(@RequestBody PatientDto patientDto) {
         PatientDto addedPatient = patientService.addPatient(patientDto);
         URI addedPatientUri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
+                .path("/{patientId}")
                 .buildAndExpand(addedPatient.getId())
                 .toUri();
         return ResponseEntity.created(addedPatientUri).body(addedPatient);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> updatePatient(@PathVariable("id") long id, @RequestBody PatientDto patientDto) {
-        return patientService.updatePatient(id,patientDto)
+    @PatchMapping("/{patientId}")
+    public ResponseEntity<?> updatePatient(@PathVariable("patientId") long patientId, @RequestBody PatientDto patientDto) {
+        return patientService.updatePatient(patientId,patientDto)
                 .map(patient->ResponseEntity.noContent().build())
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePatient(@PathVariable("id") long id) {
-        patientService.deletePatient(id);
+    @DeleteMapping("/{patientId}")
+    public ResponseEntity<?> deletePatient(@PathVariable("patientId") long patientId) {
+        patientService.deletePatient(patientId);
         return ResponseEntity.noContent().build();
     }
 }
