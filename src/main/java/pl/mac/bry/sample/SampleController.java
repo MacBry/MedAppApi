@@ -37,7 +37,7 @@ public class SampleController {
         return ResponseEntity.ok(sampleService.getPatientAllSamples(patientId));
     }
 
-    @GetMapping("/{sampleId")
+    @GetMapping("/{sampleId}")
     public ResponseEntity<SimpleSampleDto> getSampleById(@PathVariable("sampleId") long sampleId) {
         return sampleService.findSampleById(sampleId)
                 .map(ResponseEntity::ok)
@@ -54,7 +54,7 @@ public class SampleController {
         return ResponseEntity.created(addedSampleUri).body(addedSample);
     }
 
-    @PatchMapping("/{sampleId")
+    @PatchMapping("/{sampleId}")
     public ResponseEntity<?> updateSample(@PathVariable("sampleId") long sampleid,
                 @RequestBody SimpleSampleDto simpleSampleDto) {
         return sampleService.updateSample(sampleid, simpleSampleDto)
