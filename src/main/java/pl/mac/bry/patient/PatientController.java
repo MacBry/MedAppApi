@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import pl.mac.bry.patient.dto.PatientDto;
 
 import java.net.URI;
 import java.util.Set;
@@ -13,7 +12,7 @@ import java.util.Set;
 @RequestMapping("/patients")
 public class PatientController {
 
-    PatientService patientService;
+    private final PatientService patientService;
 
     @Autowired
     public PatientController(PatientService patientService) {

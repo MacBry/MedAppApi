@@ -2,9 +2,6 @@ package pl.mac.bry.patient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.mac.bry.patient.dto.PatientDto;
-import pl.mac.bry.patient.enums.ABOBloodGroup;
-import pl.mac.bry.patient.enums.RhDFactor;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -67,12 +64,6 @@ class PatientServiceImp implements PatientService {
         }
         if(patientDto.getPesel() != null) {
             target.setPesel(patientDto.getPesel());
-        }
-        if(patientDto.getAboGroup() != null) {
-            target.setAboGroup(ABOBloodGroup.valueOfDescription(patientDto.getAboGroup()));
-        }
-        if(patientDto.getRhdFactor() !=null) {
-            target.setRhdFactor(RhDFactor.valueOFDescription(patientDto.getRhdFactor()));
         }
         return target;
     }

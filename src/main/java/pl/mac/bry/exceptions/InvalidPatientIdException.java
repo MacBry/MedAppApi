@@ -1,4 +1,4 @@
-package pl.mac.bry.patient.exceptions;
+package pl.mac.bry.exceptions;
 
 public class InvalidPatientIdException extends RuntimeException {
 

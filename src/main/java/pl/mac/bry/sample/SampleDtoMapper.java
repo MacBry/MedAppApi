@@ -20,7 +20,6 @@ class SampleDtoMapper {
                 .donationDateTime(getStringFromZonedDateTime(sample.getDonationDateTime()))
                 .registrationDateTime(getStringFromZonedDateTime(sample.getRegistrationDateTime()))
                 .sampleType(sample.getSampleType().getDescription())
-                .patientId(sample.getPatient().getId())
                 .build();
 
     }
@@ -38,12 +37,6 @@ class SampleDtoMapper {
                 .donationDateTime(getStringFromZonedDateTime(sample.getDonationDateTime()))
                 .registrationDateTime(getStringFromZonedDateTime(sample.getRegistrationDateTime()))
                 .sampleType(sample.getSampleType().getDescription())
-                .patientId(sample.getPatient().getId())
-                .firstName(sample.getPatient().getFirstName())
-                .lastName(sample.getPatient().getLastName())
-                .pesel(sample.getPatient().getPesel())
-                .aboGroup(sample.getPatient().getAboGroup().getDescription())
-                .rhdFactor(sample.getPatient().getRhdFactor().getDescription())
                 .build();
     }
 

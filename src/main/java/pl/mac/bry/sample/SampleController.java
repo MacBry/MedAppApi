@@ -29,7 +29,7 @@ public class SampleController {
         return ResponseEntity.ok(sampleService.getAllSamples());
     }
 
-    @GetMapping("/patients/{patientId}/samples")
+    @GetMapping("/patient/{patientId}/samples")
     public ResponseEntity<Set<ComplexSampleDto>> getPatientAllSamples(@PathVariable("patientId") long patientId) {
         if(sampleService.getPatientAllSamples(patientId).isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -55,14 +55,14 @@ public class SampleController {
     }
 
     @PatchMapping("/{sampleId}")
-    public ResponseEntity<?> updateSample(@PathVariable("sampleId") long sampleid,
+    public ResponseEntity<?> updateSample(@PathVariable("sampleId") long sampleId,
                 @RequestBody SimpleSampleDto simpleSampleDto) {
-        return sampleService.updateSample(sampleid, simpleSampleDto)
+        return sampleService.updateSample(sampleId, simpleSampleDto)
                 .map(sample ->ResponseEntity.noContent().build())
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{sampleId}")
     public ResponseEntity<?> deleteSample(@PathVariable("sampleId")long sampleId) {
         sampleService.deleteSample(sampleId);
         return ResponseEntity.noContent().build();

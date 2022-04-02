@@ -1,4 +1,4 @@
-package pl.mac.bry.patient.dto;
+package pl.mac.bry.patient;
 
 import lombok.*;
 
@@ -14,7 +14,5 @@ public class PatientDto {
     private String firstName;
     private String lastName;
     private String pesel;
-    private String aboGroup;
-    private String rhdFactor;
 
 }

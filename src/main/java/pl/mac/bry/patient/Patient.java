@@ -16,10 +16,8 @@ import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import pl.mac.bry.sample.Sample;
-
-import pl.mac.bry.patient.enums.ABOBloodGroup;
-import pl.mac.bry.patient.enums.RhDFactor;
+import pl.mac.bry.address.Address;
+import pl.mac.bry.order.Order;
 
 
 @Setter
@@ -42,20 +40,15 @@ public class Patient implements Serializable  {
 	private String lastName;
 	
 	private String pesel;
-	
-	private ABOBloodGroup aboGroup;
-	
-	private RhDFactor rhdFactor;
-	
+
 	@OneToMany(mappedBy = "patient", cascade =  { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)// to remove "cannot simultaneously fetch multiple bags"
-	private Set<Sample> patientSamples = new HashSet<>();
+	private Set<Address> addresses = new HashSet<>();
+
+	@OneToMany(mappedBy = "patient", cascade =  { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER, orphanRemoval = true)
+	@Fetch(value = FetchMode.SUBSELECT)// to remove "cannot simultaneously fetch multiple bags"
+	private Set<Order> orders =new HashSet<>();
+
 	
-	public void addPatientSample(Sample sample ) {
-		if(patientSamples.contains(sample)) {
-			return; 
-		}
-		patientSamples.add(sample);
-		sample.setPatient(this);
-	}
+
 }

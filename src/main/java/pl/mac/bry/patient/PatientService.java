@@ -1,7 +1,5 @@
 package pl.mac.bry.patient;
 
-import pl.mac.bry.patient.dto.PatientDto;
-
 import java.util.Optional;
 import java.util.Set;
 
