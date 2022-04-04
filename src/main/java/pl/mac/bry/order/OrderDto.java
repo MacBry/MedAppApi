@@ -13,5 +13,6 @@ import pl.mac.bry.patient.PatientDto;
 class OrderDto {
     private Long id;
     private PatientDto patient;
+    private String orderStatus;
 
 }

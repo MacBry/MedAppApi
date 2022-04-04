@@ -29,4 +29,7 @@ public class Order implements Serializable {
 
     private ZonedDateTime orderDateTime;
 
+    private OrderStatus orderStatus;
+
+
 }

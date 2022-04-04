@@ -18,6 +18,7 @@ class OrderDtoMapper {
         return OrderDto.builder()
                 .id(order.getId())
                 .patient(patientFacade.map(order.getPatient()))
+                .orderStatus(order.getOrderStatus().getDescription())
                 .build();
     }
 
@@ -27,6 +28,7 @@ class OrderDtoMapper {
                 .build();
         patientFacade.getPatient(dto.getPatient().getId())
                 .ifPresent(order::setPatient);
+        order.setOrderStatus(OrderStatus.UNREALIZED);
         return order;
     }
 

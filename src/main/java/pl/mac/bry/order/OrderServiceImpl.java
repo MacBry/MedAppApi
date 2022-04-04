@@ -2,6 +2,7 @@ package pl.mac.bry.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.mac.bry.exceptions.CannotCreateOrderForPatientException;
 import pl.mac.bry.exceptions.InvalidPatientIdException;
 import pl.mac.bry.patient.Patient;
 import pl.mac.bry.patient.PatientFacade;
@@ -52,9 +53,12 @@ class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderDto addOrder(OrderDto orderDto) {
-        Order orderToSave = orderDtoMapper.map(orderDto);
-        Order savedOrder = orderRepository.save(orderToSave);
-        return orderDtoMapper.map(savedOrder);
+            Order orderToSave = orderDtoMapper.map(orderDto);
+            if (!orderToSave.getPatient().getAddresses().isEmpty() || isPatientHaveUnrealizedOrder(orderToSave.getPatient()))  {
+                Order savedOrder = orderRepository.save(orderToSave);
+                return orderDtoMapper.map(savedOrder);
+            }
+            else throw new CannotCreateOrderForPatientException(orderToSave.getPatient());
     }
 
     @Override
@@ -65,5 +69,15 @@ class OrderServiceImpl implements OrderService{
     @Override
     public void deleteOrder(Long orderId) {
 
+    }
+
+    private boolean isPatientHaveUnrealizedOrder(Patient patient) {
+        Set<Order> orders = patient.getOrders();
+        for(Order order : orders){
+            if(order.getOrderStatus() == OrderStatus.REALIZED){
+                return true;
+            }
+        }
+        return false;
     }
 }
