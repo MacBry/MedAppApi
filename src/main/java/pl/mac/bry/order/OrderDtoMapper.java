@@ -18,15 +18,16 @@ class OrderDtoMapper {
         return OrderDto.builder()
                 .id(order.getId())
                 .patient(patientFacade.map(order.getPatient()))
-                .address(order.getPatientAddress())
                 .build();
     }
 
     Order map (OrderDto dto) {
-        return Order.builder()
+        Order order = Order.builder()
                 .patient(patientFacade.map(dto.getPatient()))
-                .patientAddress(dto.getAddress())
                 .build();
+        patientFacade.getPatient(dto.getPatient().getId())
+                .ifPresent(order::setPatient);
+        return order;
     }
 
 }
