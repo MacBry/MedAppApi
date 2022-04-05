@@ -25,6 +25,6 @@ public class PatientTest {
 
     @Test
     void newPatientShouldHaveEmptyAddressSet() {
-        assertThat(patient.getAddresses(), is(empty()));
+        assertThat(patient.getPatientAddresses(), is(empty()));
     }
 }

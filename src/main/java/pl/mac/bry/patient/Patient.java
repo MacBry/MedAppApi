@@ -16,7 +16,7 @@ import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import pl.mac.bry.address.Address;
+import pl.mac.bry.patient_address.PatientAddress;
 import pl.mac.bry.order.Order;
 
 
@@ -44,7 +44,7 @@ public class Patient implements Serializable  {
 
 	@OneToMany(mappedBy = "patient", cascade =  { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)// to remove "cannot simultaneously fetch multiple bags"
-	private Set<Address> addresses = new HashSet<>();
+	private Set<PatientAddress> patientAddresses = new HashSet<>();
 
 	@OneToMany(mappedBy = "patient", cascade =  { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)// to remove "cannot simultaneously fetch multiple bags"

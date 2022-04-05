@@ -2,6 +2,7 @@ package pl.mac.bry.order;
 
 import lombok.*;
 import pl.mac.bry.patient.Patient;
+import pl.mac.bry.referral_unit.ReferralUnit;
 
 
 import javax.persistence.*;
@@ -31,5 +32,7 @@ public class Order implements Serializable {
 
     private OrderStatus orderStatus;
 
+    @OneToOne
+    private ReferralUnit referralUnit;
 
 }

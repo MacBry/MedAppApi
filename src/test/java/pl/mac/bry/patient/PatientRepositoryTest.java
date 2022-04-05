@@ -14,9 +14,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 
 @ExtendWith(SpringExtension.class)
@@ -72,7 +72,7 @@ public class PatientRepositoryTest {
     @Test
     void givenPatientIdShouldReturnPatientWithThisId() {
         Patient persistPatient = patientRepository.getById(patient.getId());
-        assertThat(persistPatient.getId(), equalTo(patient.getId()));
+        assertThat(persistPatient.getId(), is(equalTo(patient.getId())));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class PatientRepositoryTest {
     void deleteAllPatientShouldReturnEmptyPatientSet() {
         patientRepository.deleteAll();
         Set<Patient> patients = patientRepository.findAll().stream().collect(Collectors.toSet());
-        assertThat(patients.size(), equalTo(0));
+        assertThat(patients.size(), is(equalTo(0)));
     }
 
     @Test
@@ -93,6 +93,6 @@ public class PatientRepositoryTest {
 
         patientRepository.delete(patient1);
         Optional optional = patientRepository.findById(patient1.getId());
-        assertThat(optional.isEmpty(), equalTo(true));
+        assertThat(optional.isEmpty(), is(equalTo(true)));
     }
 }

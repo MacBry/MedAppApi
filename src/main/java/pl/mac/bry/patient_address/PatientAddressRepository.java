@@ -1,8 +1,8 @@
-package pl.mac.bry.address;
+package pl.mac.bry.patient_address;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface AddressRepository extends JpaRepository<Address, Long> {
+interface PatientAddressRepository extends JpaRepository<PatientAddress, Long> {
 }

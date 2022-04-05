@@ -1,20 +1,19 @@
 package pl.mac.bry.address;
 
 import lombok.*;
-import pl.mac.bry.patient.Patient;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 @Setter
 @Getter
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Address implements Serializable {
-
-    private static final long serialVersionUID = -7376389211884169304L;
+@MappedSuperclass
+public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +32,4 @@ public class Address implements Serializable {
     private String buildingNumber;
 
     private String apartmentNumber;
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
-    private Patient patient;
 }

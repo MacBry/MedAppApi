@@ -1,6 +1,6 @@
 package pl.mac.bry.address;
 
-enum StreetPrefix {
+public enum StreetPrefix {
     STREET("St"),
     ROAD("Rd"),
     AVENUE("Ave"),
@@ -14,11 +14,11 @@ enum StreetPrefix {
         this.description = description;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    static StreetPrefix valuesOfDescription (String description) {
+    public static StreetPrefix valuesOfDescription (String description) {
         for(StreetPrefix streetPrefix : values()) {
             if(streetPrefix.getDescription().equals(description)) {
                 return streetPrefix;

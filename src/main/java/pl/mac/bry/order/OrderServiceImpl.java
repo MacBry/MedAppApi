@@ -57,7 +57,7 @@ class OrderServiceImpl implements OrderService{
     @Override
     public OrderDto addOrder(OrderDto orderDto) {
         Order orderToSave = orderDtoMapper.map(orderDto);
-        if (orderToSave.getPatient().getAddresses().isEmpty()){
+        if (orderToSave.getPatient().getPatientAddresses().isEmpty()){
             throw new CannotCreateOrderForPatientWithoutAddressException();
         }
         if (isPatientHaveUnrealizedOrder(orderToSave.getPatient())) {

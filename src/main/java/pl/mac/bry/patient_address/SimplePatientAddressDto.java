@@ -1,4 +1,4 @@
-package pl.mac.bry.address;
+package pl.mac.bry.patient_address;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class ComplexAddressDto {
+class SimplePatientAddressDto {
 
     private Long id;
     private String country;
@@ -19,6 +19,5 @@ class ComplexAddressDto {
     private String apartmentNumber;
 
     private Long patientId;
-    private String firstName;
-    private String lastName;
+
 }
