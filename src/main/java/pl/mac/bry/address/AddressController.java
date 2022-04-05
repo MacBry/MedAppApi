@@ -34,7 +34,7 @@ public class AddressController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/patient/{patientId}/samples")
+    @GetMapping("/patient/{patientId}/addresses")
     public ResponseEntity<Set<ComplexAddressDto>> getPatientAllAddresses(@PathVariable("patientId") long patientId) {
         if(addressService.getAllPatientAddresses(patientId).isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -52,13 +52,13 @@ public class AddressController {
         return ResponseEntity.created(addedAddressUri).body(addedAddress);
     }
 
-    @PatchMapping("/addressId")
+    @PatchMapping("/{addressId}")
     public ResponseEntity<?> updateAddress(@PathVariable("addressId") long addressId, @RequestBody SimpleAddressDto simpleAddressDto) {
         return addressService.updateAddress(addressId, simpleAddressDto)
                 .map(address -> ResponseEntity.noContent().build())
                 .orElse(ResponseEntity.notFound().build());
     }
-    @DeleteMapping("/addressId")
+    @DeleteMapping("/{addressId}")
     public ResponseEntity<?> deleteAddress(@PathVariable("addressId") long addressId) {
         addressService.deleteAddress(addressId);
         return ResponseEntity.noContent().build();

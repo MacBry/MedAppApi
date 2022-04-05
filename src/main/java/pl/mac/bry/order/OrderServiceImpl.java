@@ -2,11 +2,14 @@ package pl.mac.bry.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.mac.bry.exceptions.CannotCreateOrderForPatientException;
+import pl.mac.bry.exceptions.CannotCreateOrderForPatientWithUnrealizedOrder;
+import pl.mac.bry.exceptions.CannotCreateOrderForPatientWithoutAddressException;
 import pl.mac.bry.exceptions.InvalidPatientIdException;
 import pl.mac.bry.patient.Patient;
 import pl.mac.bry.patient.PatientFacade;
 
+import javax.transaction.Transactional;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -53,22 +56,31 @@ class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderDto addOrder(OrderDto orderDto) {
-            Order orderToSave = orderDtoMapper.map(orderDto);
-            if (!orderToSave.getPatient().getAddresses().isEmpty() || isPatientHaveUnrealizedOrder(orderToSave.getPatient()))  {
-                Order savedOrder = orderRepository.save(orderToSave);
-                return orderDtoMapper.map(savedOrder);
-            }
-            else throw new CannotCreateOrderForPatientException(orderToSave.getPatient());
+        Order orderToSave = orderDtoMapper.map(orderDto);
+        if (orderToSave.getPatient().getAddresses().isEmpty()){
+            throw new CannotCreateOrderForPatientWithoutAddressException();
+        }
+        if (isPatientHaveUnrealizedOrder(orderToSave.getPatient())) {
+            throw new CannotCreateOrderForPatientWithUnrealizedOrder();
+        }
+        else {
+            orderToSave.setOrderDateTime(ZonedDateTime.now());
+            Order savedOrder = orderRepository.save(orderToSave);
+            return orderDtoMapper.map(savedOrder);
+        }
     }
 
     @Override
+    @Transactional
     public Optional<OrderDto> updateOrder(Long orderId, OrderDto orderDto) {
-        return Optional.empty();
+        return orderRepository.findById(orderId)
+                .map(target -> setEntityFields(orderDto, target))
+                .map(orderDtoMapper::map);
     }
 
     @Override
     public void deleteOrder(Long orderId) {
-
+        orderRepository.deleteById(orderId);
     }
 
     private boolean isPatientHaveUnrealizedOrder(Patient patient) {
@@ -79,5 +91,16 @@ class OrderServiceImpl implements OrderService{
             }
         }
         return false;
+    }
+
+    private Order setEntityFields(OrderDto orderDto, Order target) {
+        if(orderDto.getPatient() != null) {
+            target.setPatient(patientFacade.map(orderDto.getPatient()));
+        }
+        if(OrderStatus.valuesOfDescription(orderDto.getOrderStatus()) != target.getOrderStatus()) {
+            target.setOrderStatus(OrderStatus.valuesOfDescription(orderDto.getOrderStatus()));
+        }
+
+        return target;
     }
 }

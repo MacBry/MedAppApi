@@ -26,6 +26,7 @@ import pl.mac.bry.order.Order;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class Patient implements Serializable  {
 
 
