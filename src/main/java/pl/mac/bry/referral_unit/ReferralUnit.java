@@ -36,7 +36,7 @@ public class ReferralUnit implements Serializable {
 
     private String resortBookNumber;
 
-    @OneToMany(mappedBy = "order", cascade =  { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "referralUnit", cascade =  { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)// to remove "cannot simultaneously fetch multiple bags"
     private Set<Order> orders;
 

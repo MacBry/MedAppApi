@@ -11,7 +11,6 @@ import javax.persistence.MappedSuperclass;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @MappedSuperclass
 public class Address {
 
