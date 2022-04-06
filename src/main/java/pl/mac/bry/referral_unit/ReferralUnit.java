@@ -1,10 +1,14 @@
 package pl.mac.bry.referral_unit;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import pl.mac.bry.order.Order;
 import pl.mac.bry.unit_address.UnitAddress;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -32,6 +36,14 @@ public class ReferralUnit implements Serializable {
 
     private String resortBookNumber;
 
+    @OneToMany(mappedBy = "order", cascade =  { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER, orphanRemoval = true)
+    @Fetch(value = FetchMode.SUBSELECT)// to remove "cannot simultaneously fetch multiple bags"
+    private Set<Order> orders;
+
     @OneToOne
     private UnitAddress unitAddress;
+
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
 }

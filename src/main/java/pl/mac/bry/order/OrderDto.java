@@ -15,4 +15,5 @@ class OrderDto {
     private PatientDto patient;
     private String orderStatus;
 
+    private Long UnitId;
 }

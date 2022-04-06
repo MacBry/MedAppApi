@@ -32,7 +32,8 @@ public class Order implements Serializable {
 
     private OrderStatus orderStatus;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
     private ReferralUnit referralUnit;
 
 }

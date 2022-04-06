@@ -9,7 +9,9 @@ interface OrderService {
 
     Set<OrderDto> getAllOrders();
 
-    Set<OrderDto> getAllPatientOrders(Long patientId);
+    Set<OrderDto> gePatientAllOrders(Long patientId);
+
+    Set<OrderDto> getUnitAllOrders(Long unitId);
 
     OrderDto addOrder(OrderDto orderDto);
 

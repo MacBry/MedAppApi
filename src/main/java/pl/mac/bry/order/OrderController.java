@@ -36,10 +36,18 @@ public class OrderController {
 
     @GetMapping("/patient/{patientId}/orders")
     public ResponseEntity<Set<OrderDto>> getPatientAllOrders(@PathVariable("patientId") long patientId) {
-        if(orderService.getAllPatientOrders(patientId).isEmpty()) {
+        if(orderService.gePatientAllOrders(patientId).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(orderService.getAllPatientOrders(patientId));
+        return ResponseEntity.ok(orderService.gePatientAllOrders(patientId));
+    }
+
+    @GetMapping("/unit/{unitId}/orders")
+    public ResponseEntity<Set<OrderDto>> getUnitAllOrders(@PathVariable("unitId") long unitId) {
+        if(orderService.getUnitAllOrders(unitId).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(orderService.getUnitAllOrders(unitId));
     }
 
     @PostMapping

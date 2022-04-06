@@ -5,8 +5,11 @@ import org.springframework.stereotype.Service;
 import pl.mac.bry.exceptions.CannotCreateOrderForPatientWithUnrealizedOrder;
 import pl.mac.bry.exceptions.CannotCreateOrderForPatientWithoutAddressException;
 import pl.mac.bry.exceptions.InvalidPatientIdException;
+import pl.mac.bry.exceptions.InvalidUnitIdException;
 import pl.mac.bry.patient.Patient;
 import pl.mac.bry.patient.PatientFacade;
+import pl.mac.bry.referral_unit.ReferralUnit;
+import pl.mac.bry.referral_unit.ReferralUnitFacade;
 
 import javax.transaction.Transactional;
 import java.time.ZonedDateTime;
@@ -20,14 +23,17 @@ class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
     private final OrderDtoMapper orderDtoMapper;
     private final PatientFacade patientFacade;
+    private final ReferralUnitFacade unitFacade;
 
     @Autowired
     public OrderServiceImpl(OrderRepository orderRepository,
                             OrderDtoMapper orderDtoMapper,
-                            PatientFacade patientFacade) {
+                            PatientFacade patientFacade,
+                            ReferralUnitFacade unitFacade) {
         this.orderRepository = orderRepository;
         this.orderDtoMapper = orderDtoMapper;
         this.patientFacade = patientFacade;
+        this.unitFacade = unitFacade;
     }
 
     @Override
@@ -45,10 +51,20 @@ class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Set<OrderDto> getAllPatientOrders(Long patientId) {
+    public Set<OrderDto> gePatientAllOrders(Long patientId) {
         Patient patient = patientFacade.getPatient(patientId)
                 .orElseThrow(() -> new InvalidPatientIdException(patientId));
         return patient.getOrders()
+                .stream()
+                .map(orderDtoMapper::map)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<OrderDto> getUnitAllOrders(Long unitId) {
+        ReferralUnit unit = unitFacade.getReferralUnit(unitId)
+                .orElseThrow(() -> new InvalidUnitIdException(unitId));
+        return unit.getOrders()
                 .stream()
                 .map(orderDtoMapper::map)
                 .collect(Collectors.toSet());
