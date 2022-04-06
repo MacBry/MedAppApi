@@ -3,7 +3,6 @@ package pl.mac.bry.unit_address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.mac.bry.address.StreetPrefix;
-import pl.mac.bry.patient_address.PatientAddress;
 import pl.mac.bry.referral_unit.ReferralUnitFacade;
 
 @Service
