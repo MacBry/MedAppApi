@@ -16,5 +16,4 @@ public class ReferralUnitDto {
     private String email;
     private String resortBookNumber;
 
-    private Long unitAddressId;
 }
