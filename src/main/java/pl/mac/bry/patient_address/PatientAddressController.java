@@ -9,7 +9,7 @@ import java.net.URI;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/addresses")
+@RequestMapping("/patient_addresses")
 public class PatientAddressController {
 
     private final PatientAddressService patientAddressService;
