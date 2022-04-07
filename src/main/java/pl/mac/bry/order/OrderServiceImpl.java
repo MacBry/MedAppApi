@@ -99,6 +99,7 @@ class OrderServiceImpl implements OrderService{
         orderRepository.deleteById(orderId);
     }
 
+
     private boolean isPatientHaveUnrealizedOrder(Patient patient) {
         Set<Order> orders = patient.getOrders();
         for(Order order : orders){

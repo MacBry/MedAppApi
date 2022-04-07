@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.is;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class PatientRepositoryTest {
+public class PatientRepositoryLabTest {
 
     @Autowired
     private PatientRepository patientRepository;
