@@ -3,7 +3,7 @@ package pl.mac.bry.lab_test;
 import java.util.Optional;
 import java.util.Set;
 
-public interface LabTestService {
+interface LabTestService {
 
     Optional<LabTestDto> findLabTestById(Long labTestId);
 

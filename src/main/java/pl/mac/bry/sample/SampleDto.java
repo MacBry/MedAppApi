@@ -1,4 +1,4 @@
-package pl.mac.bry.sample.dto;
+package pl.mac.bry.sample;
 
 import lombok.*;
 
@@ -7,11 +7,10 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SimpleSampleDto {
+public class SampleDto {
 
     private long id;
     private String donationDateTime;
     private String registrationDateTime;
     private String sampleType;
-    private long patientId;
 }

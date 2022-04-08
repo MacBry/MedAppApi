@@ -15,4 +15,6 @@ public class LabTestDto {
     private int upperReferenceValue;
     private int lowerReferenceValue;
     private int result;
+
+    private long sampleId;
 }

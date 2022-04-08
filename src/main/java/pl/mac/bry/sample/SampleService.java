@@ -1,22 +1,17 @@
 package pl.mac.bry.sample;
 
-import pl.mac.bry.sample.dto.ComplexSampleDto;
-import pl.mac.bry.sample.dto.SimpleSampleDto;
-
 import java.util.Optional;
 import java.util.Set;
 
 interface SampleService {
 
-    Optional<SimpleSampleDto> findSampleById(Long sampleId);
+    Optional<SampleDto> findSampleById(Long sampleId);
 
-    Set<SimpleSampleDto> getAllSamples();
+    Set<SampleDto> getAllSamples();
 
-    Set<ComplexSampleDto> getPatientAllSamples(Long patientId);
+    SampleDto addSample(SampleDto sampleDto);
 
-    SimpleSampleDto addSample(SimpleSampleDto simpleSampleDto);
-
-    Optional<SimpleSampleDto> updateSample(Long sampleId, SimpleSampleDto simpleSampleDto);
+    Optional<SampleDto> updateSample(Long sampleId, SampleDto sampleDto);
 
     void deleteSample(Long sampleId);
 

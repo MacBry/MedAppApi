@@ -55,7 +55,7 @@ public class OrderController {
         OrderDto addedOrder = orderService.addOrder(orderDto);
         URI addedOrderUri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{orderId}")
-                .buildAndExpand(orderDto.getId())
+                .buildAndExpand(addedOrder.getId())
                 .toUri();
         return ResponseEntity.created(addedOrderUri).body(addedOrder);
     }

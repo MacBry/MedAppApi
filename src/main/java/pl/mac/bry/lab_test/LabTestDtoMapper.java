@@ -1,9 +1,12 @@
 package pl.mac.bry.lab_test;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.mac.bry.sample.SampleFacade;
 
 @Service
-public class LabTestDtoMapper {
+class LabTestDtoMapper {
+
 
     LabTestDto map (LabTest labTest) {
         return LabTestDto.builder()

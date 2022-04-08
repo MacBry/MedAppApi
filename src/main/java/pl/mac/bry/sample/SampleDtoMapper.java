@@ -1,9 +1,6 @@
 package pl.mac.bry.sample;
 
 import org.springframework.stereotype.Service;
-import pl.mac.bry.sample.dto.ComplexSampleDto;
-import pl.mac.bry.sample.dto.SimpleSampleDto;
-import pl.mac.bry.sample.enums.SampleType;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,8 +11,8 @@ class SampleDtoMapper {
     public static final String DATE_FORMAT = "MM/dd/yyyy - HH:mm:ss Z";
 
 
-    SimpleSampleDto simpleMapping (Sample sample) {
-        return SimpleSampleDto.builder()
+    SampleDto map (Sample sample) {
+        return SampleDto.builder()
                 .id(sample.getId())
                 .donationDateTime(getStringFromZonedDateTime(sample.getDonationDateTime()))
                 .registrationDateTime(getStringFromZonedDateTime(sample.getRegistrationDateTime()))
@@ -24,28 +21,14 @@ class SampleDtoMapper {
 
     }
 
-    Sample simpleMapping (SimpleSampleDto dto) {
+    Sample map (SampleDto dto) {
         return Sample.builder()
                 .donationDateTime(getZonedDateTimeFromString(dto.getDonationDateTime()))
                 .sampleType(SampleType.valuesOfDescription(dto.getSampleType()))
                 .build();
     }
 
-    ComplexSampleDto complexMapping (Sample sample) {
-        return ComplexSampleDto.builder()
-                .id(sample.getId())
-                .donationDateTime(getStringFromZonedDateTime(sample.getDonationDateTime()))
-                .registrationDateTime(getStringFromZonedDateTime(sample.getRegistrationDateTime()))
-                .sampleType(sample.getSampleType().getDescription())
-                .build();
-    }
 
-    Sample complexMapping (ComplexSampleDto dto) {
-        return Sample.builder()
-                .donationDateTime(getZonedDateTimeFromString(dto.getDonationDateTime()))
-                .sampleType(SampleType.valuesOfDescription(dto.getSampleType()))
-                .build();
-    }
 
     private ZonedDateTime getZonedDateTimeFromString(String donationDateTime) {
         return ZonedDateTime.parse(donationDateTime, getDateTimeFormatter());

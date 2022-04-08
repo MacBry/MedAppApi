@@ -1,13 +1,10 @@
 package pl.mac.bry.lab_test;
 
 import lombok.*;
+import pl.mac.bry.sample.Sample;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 
 @Setter
 @Getter
@@ -33,4 +30,6 @@ public class LabTest implements Serializable {
 
     private int result;
 
+    @OneToOne
+    private Sample sample;
 }

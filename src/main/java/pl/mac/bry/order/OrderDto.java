@@ -14,7 +14,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class OrderDto {
+public class OrderDto {
     private Long id;
     private PatientDto patient;
     private String orderStatus;
