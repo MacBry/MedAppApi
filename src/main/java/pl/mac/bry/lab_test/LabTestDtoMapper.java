@@ -2,11 +2,18 @@ package pl.mac.bry.lab_test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.mac.bry.sample.Sample;
 import pl.mac.bry.sample.SampleFacade;
 
 @Service
 class LabTestDtoMapper {
 
+    private final SampleFacade sampleFacade;
+
+    @Autowired
+    public LabTestDtoMapper(SampleFacade sampleFacade) {
+        this.sampleFacade = sampleFacade;
+    }
 
     LabTestDto map (LabTest labTest) {
         return LabTestDto.builder()
@@ -20,12 +27,15 @@ class LabTestDtoMapper {
     }
 
     LabTest map (LabTestDto labTestDto) {
-        return LabTest.builder()
+        LabTest labTest = LabTest.builder()
                 .labTestName(labTestDto.getLabTestName())
                 .alterTestName(labTestDto.getAlterTestName())
                 .upperReferenceValue(labTestDto.getUpperReferenceValue())
                 .lowerReferenceValue(labTestDto.getLowerReferenceValue())
                 .result(labTestDto.getResult())
                 .build();
+        sampleFacade.getSampleById(labTestDto.getSampleId())
+                .ifPresent(labTest::setSample);
+        return  labTest;
     }
 }

@@ -11,6 +11,7 @@ class SampleDtoMapper {
     public static final String DATE_FORMAT = "MM/dd/yyyy - HH:mm:ss Z";
 
 
+
     SampleDto map (Sample sample) {
         return SampleDto.builder()
                 .id(sample.getId())
