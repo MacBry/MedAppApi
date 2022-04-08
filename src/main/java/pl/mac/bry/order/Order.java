@@ -27,7 +27,6 @@ public class Order implements Serializable {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id")
     private Patient patient;
 
     private ZonedDateTime orderDateTime;
@@ -35,7 +34,6 @@ public class Order implements Serializable {
     private OrderStatus orderStatus;
 
     @ManyToOne
-    @JoinColumn(name = "unit_id")
     private ReferralUnit referralUnit;
 
     @ManyToMany
